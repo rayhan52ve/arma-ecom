@@ -303,48 +303,46 @@
 
 
 
-    <section class="sec-padding" style="margin-top: 200px;">
+    <section class="sec-padding mobile-hide">
         <div class="container sec-tpadding-3 sec-bpadding-3">
             <div class="row justify-content-center">
                 <div class="col-xs-12 text-center">
                     <div class="sec-title-container">
                         <h2 class="c5-sec-title font-weight-6 less-mar-1 montserrat title">
                             Service Categories</h2>
+                        <p class="c5-sub-title raleway">Select the type of service you need.</p>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <!--end title-->
 
-                <div id="owl-demo10" class="owl-carousel owl-theme">
+                <div id="owl-demo5" class="owl-carousel owl-theme">
                     @foreach ($serviceCategories as $key => $item)
-                        @if ($key % 5 == 0)
-                            <div class="item {{ $key == 0 ? 'active' : '' }}" style="display: flex;">
-                        @endif
-                        <div class="col-md-8 flex-custom col-centered text-center">
-                            <a href="{{ route('front.services') }}#{{ $key - 1 }}">
-                                <div class="c5-feature-box-6">
-                                    <div class="clearfix"></div>
-                                    <br />
-                                    <div class="imgbox-large center overflow-hidden"><img
-                                            src="{{ asset('uploads/service_category/' . $item->image) }}" width="120px"
-                                            style="height:120px" alt="" class="img-responsive" /></div>
-                                    <h6>{{ $item->service_category }}</h6>
+                        <div class="item" style="display: flex;">
+                            <div class="col-md-8 col-centered text-center">
+                                <a href="{{ route('front.services') }}#{{ $key - 1 }}">
+                                    <div class="c5-feature-box-6">
+                                        <div class="clearfix"></div>
+                                        <br />
+                                        <div class="imgbox-large center overflow-hidden"><img
+                                                src="{{ asset('uploads/service_category/' . $item->image) }}"
+                                                width="120px" style="height:120px" alt=""
+                                                class="img-responsive" /></div>
+                                        <h6>{{ $item->service_category }}</h6>
 
-                                </div>
-                            </a>
+                                    </div>
+                                </a>
+                            </div>
+                            <!--end item-->
                         </div>
-                        <!--end item-->
-                        @if (($key + 1) % 5 == 0 || $key == count($services) - 1)
+                    @endforeach
+
+
+                    <!--end carousel item  -->
                 </div>
-                @endif
-                @endforeach
+                <!--end carousel  -->
 
-
-                <!--end carousel item  -->
             </div>
-            <!--end carousel  -->
-
-        </div>
 
         </div>
 
@@ -367,7 +365,7 @@
     <div class="clearfix"></div>
 
 
-    <section class="sec-padding" style="margin-top: 100px;">
+    <section class="sec-padding mobile-hide">
         <div class="container">
             <div class="row slide-controls-2">
                 <div class="col-xs-12 text-center">
@@ -381,7 +379,7 @@
                 <div class="text-center">
                     <a href="{{ route('front.services') }}" class="btn text-success">View All</a>
                 </div>
-                <div id="owl-demo9" class="owl-carousel owl-theme flex-container">
+                <div id="owl-demo9" class="owl-carousel owl-theme flex-container" style="max-width: 100%">
                     @php
                         $serviceCount = count($services);
                     @endphp
@@ -424,78 +422,25 @@
 
             .flex-service {
                 flex: 0 0 25%;
-                /* Each item occupies 1/4 of the carousel width */
                 max-width: 25%;
+            }
+
+            /* Hide the heading on screens smaller than 768px (mobile) */
+            @media screen and (max-width: 768px) {
+                .mobile-hide {
+                    display: none;
+                }
+            }
+
+            @media screen and (min-width: 768px) {
+                .mobile-show {
+                    display: none;
+                }
             }
         </style>
     </section>
 
-    <section class="sec-padding" style="margin-top: 100px;">
-        <div class="container">
-            <div class="row slide-controls-2">
-                <div class="col-xs-12 text-center">
-                    <div class="sec-title-container">
-                        <h2 class="c5-sec-title font-weight-6 less-mar-1 montserrat title">Services</h2>
-                        <p class="c5-sub-title raleway">Order your preferred services from here.</p>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <!--end title-->
-                <div class="text-center">
-                    <a href="{{ route('front.services') }}" class="btn text-success">View All</a>
-                </div>
-                <div id="owl-demo9" class="owl-carousel owl-theme flex-container">
-                    @php
-                        $serviceCount = count($services);
-                    @endphp
-                    @foreach ($services as $key => $item)
-                        @if ($loop->first || $loop->iteration % 4 == 1)
-                            <div class="item {{ $loop->first ? 'active' : '' }}" style="display: flex;">
-                        @endif
-                        <div class="col-sm-12 col-md-3 flex-service text-center">
-                            <a href="{{ route('customer.bookOrder', $item->id) }}">
-                                <div class="c5-feature-box-6">
-                                    <div class="clearfix"></div>
-                                    <br />
-                                    <div class="imgbox-xlarge center overflow-hidden">
-                                        <img src="{{ asset('uploads/service/' . $item->image) }}" width="200px"
-                                            style="height:135px" alt="" class="img-responsive" />
-                                    </div>
-                                    <h6>{{ $item->name }}</h6>
-                                </div>
-                            </a>
-                        </div>
-                        @if ($loop->last || $loop->iteration % 4 == 0)
-                </div>
-                @endif
-                @endforeach
-            </div>
-
-            <!--end carousel  -->
-
-        </div>
-        </div>
-
-        <style>
-            .owl-carousel .item {
-                display: flex;
-            }
-
-            .flex-container {
-                flex-wrap: wrap;
-            }
-
-            .flex-service {
-                flex: 0 0 25%;
-                /* Each item occupies 1/4 of the carousel width */
-                max-width: 25%;
-            }
-        </style>
-    </section>
-
-
-
-    {{-- <section class="parallax-1">
+    <section class="parallax-1 mobile-show">
         <div class="container-fluid nopadding">
             <div class="parallax-overlay">
                 <div class="container sec-tpadding-3 sec-bpadding-3">
@@ -540,7 +485,7 @@
             </div>
         </div>
     </section>
-    <div class="clearfix"></div> --}}
+    <div class="clearfix"></div>
 
 
 
@@ -695,7 +640,6 @@
     @endpush
 
     $@push('script')
-        <script script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>
             $(document).ready(function() {
                 $('.counter-value').each(function() {
@@ -752,30 +696,32 @@
             </div>
         </div>
     </section>
-    <div class="container-fluid sec-padding" style="background: rgba(44, 88, 155, 0.082)">
-        <div class="row ">
-            <div class="col-md-3 col-sm-6">
-                <div class="counter">
-                    <span class="counter-value">10</span>
-                    <h3>Web Designing</h3>
+    <div class=" sec-padding" style="background: rgba(44, 88, 155, 0.082)">
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter">
+                        <span class="counter-value">10</span>
+                        <h3>Web Designing</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter purple">
-                    <span class="counter-value">10</span>
-                    <h3>Web Development</h3>
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter purple">
+                        <span class="counter-value">10</span>
+                        <h3>Web Development</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter">
-                    <span class="counter-value">10</span>
-                    <h3>Web Designing</h3>
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter">
+                        <span class="counter-value">10</span>
+                        <h3>Web Designing</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter purple">
-                    <span class="counter-value">10</span>
-                    <h3>Web Development</h3>
+                <div class="col-md-3 col-sm-6">
+                    <div class="counter purple">
+                        <span class="counter-value">10</span>
+                        <h3>Web Development</h3>
+                    </div>
                 </div>
             </div>
         </div>
